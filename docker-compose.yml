@@ -1,0 +1,27 @@
+version: "3.7" # 这个是配置文件的版本，不同的版本号声明方式会有细微的不同
+services:
+  info:
+      container_name: pea3nut-info
+      image: muun/parcelhtml:latest
+      ports:
+          - "8082:80"
+      restart: on-failure
+  # 改镜像会暴露出自身的 `header` 信息
+  # whoami:
+  #   image: containous/whoami
+  #   labels:
+  #     # 设置Host 为 whoami.docker.localhost 进行域名访问
+  #     - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
+  reverse-proxy:
+    image: traefik:v2.2
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+# 使用已存在的 traefik 的 network
+# networks:
+#   default:
+#     external:
+#       name: traefik_default
