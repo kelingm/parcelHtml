@@ -17,4 +17,4 @@ script:
 - docker push muun/parcelhtml
 after_success:
 - chmod 600 ~/.ssh/id_rsa   #还是Linux文件权限问题
-- ssh blog@139.199.90.74 -o StrictHostKeyChecking=no 'cd ~/blog-front && git pull && npm install && npm run build'   #使用ssh连接服务器
+# - ssh blog@139.199.90.74 -o StrictHostKeyChecking=no 'cd ~/blog-front && git pull && npm install && npm run build'   #使用ssh连接服务器
