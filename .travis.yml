@@ -17,5 +17,4 @@ script:
 - docker build -t muun/parcelhtml .
 - docker push muun/parcelhtml
 after_success:
-- ssh travis@$IP -o StrictHostKeyChecking=no 'cd ~/projects/parcelHtml && docker-compose pull && docker-compose
-  stop && docker-compose rm -f && docker-compose up -d'
+- ssh travis@$IP -o StrictHostKeyChecking=no 'cd ~/projects/parcelHtml && docker-compose pull && docker-compose stop -f && docker-compose rm -f && docker-compose up -d'
