@@ -9,8 +9,6 @@ addons:
 before_install:
 - openssl aes-256-cbc -K $encrypted_04674a2f3de9_key -iv $encrypted_04674a2f3de9_iv
   -in id_rsa.enc -out ~\/.ssh/id_rsa -d
-- openssl aes-256-cbc -K $encrypted_9b2d7e19d83c_key -iv $encrypted_9b2d7e19d83c_iv
-  -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
 - npm install -g parcel-bundler
 script:
@@ -19,5 +17,5 @@ script:
 - docker build -t muun/parcelhtml .
 - docker push muun/parcelhtml
 after_success:
-- ssh root@$IP -o StrictHostKeyChecking=no 'cd test && docker-compose pull && docker-compose
+- ssh travis@$IP -o StrictHostKeyChecking=no 'cd ~/projects/parcelHtml && docker-compose pull && docker-compose
   stop && docker-compose rm -f && docker-compose up -d'
